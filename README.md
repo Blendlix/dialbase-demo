@@ -189,7 +189,7 @@ cp config/development.example.json config/development.json
 ```
 
 Resolve any Android/iOS toolchain issues reported by `flutter doctor`. Edit
-`app/config/development.json` to point to YOUR Laravel backend, including `/api/v1`:
+`app/config/development.json` with the Laravel backend URL, including `/api/v1`:
 
 ```json
 {
@@ -225,10 +225,10 @@ From `app/`, with the reachable HTTPS backend configured:
 flutter build apk --release --dart-define-from-file=config/development.json
 ```
 
-Send `app/build/app/outputs/flutter-apk/app-release.apk` to your tester and
-install it with Android's sideload permission. This demo uses debug signing
+The APK is generated at `app/build/app/outputs/flutter-apk/app-release.apk`.
+Install it on test devices with Android's sideload permission. This demo uses debug signing
 for testing, not Play Store release signing. If you change the backend URL,
-rebuild the APK. A friend's phone also needs access to the public Reverb WSS host.
+rebuild the APK. All test devices need access to the public Reverb WSS host.
 
 ## Troubleshooting
 
@@ -258,26 +258,26 @@ and [`backend/API.md`](backend/API.md) for the mobile API. Incoming UI, ringtone
 mute, call duration, minimize and history are included. History is demo data,
 not an authoritative billing record.
 
-## Privacy Before Publishing
+## Local Data and Configuration
 
-This source snapshot excludes live databases, users, tokens, logs, uploads,
-archives, signing files and local environment files. Each installation creates
-its own SQLite database and accounts. Tests use fictional fixtures.
+Each installation creates its own SQLite database and accounts. Environment
+files, databases, logs, uploads, build output and signing files are ignored by
+Git. Tests use isolated fixtures rather than application accounts.
 
-Before the first push, stage the intended source and run:
+Contributors can check tracked files for accidental credentials and runtime data:
 
 ```sh
 node tools/check-release.mjs
 ```
 
 With a Git repository present, the check scans tracked/staged files. Without one,
-it scans the source snapshot. Ignore rules do not remove previously committed
+it scans the source directory. Ignore rules do not remove previously committed
 secrets or database files from Git history. Review staged files and history before
 pushing, and rotate any secret that has already been exposed. The check is an
 additional guard, not a guarantee against every kind of private information.
 
 ## License
 
-MIT. See [LICENSE](LICENSE). Third-party dependencies retain their own licenses.
-Bundled MP3 recordings need their own redistribution rights; the code license
-does not grant rights to audio from another creator.
+The source code is licensed under the [MIT License](LICENSE).
+Dependencies retain their respective licenses. Audio asset licensing is
+documented in [Call Sounds](backend/public/audio/calls/README.md).

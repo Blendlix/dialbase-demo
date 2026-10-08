@@ -90,12 +90,11 @@ Calls are supported while the app is running in the foreground. This demo does n
 
 The ringtone is bundled, with its reproducible generator in `tool/generate_ringtone.dart`.
 
-## Sharing the Source
+## Local Configuration and Data
 
-Source and lockfiles are included; secure-storage tokens, SQLite databases,
-local configuration, SDK paths, build output and signing files are not. The
-test accounts are isolated fixtures, not exported real users. The backend's
-SQLite file is never part of the app or source release. Account registration
+Local configuration, SDK paths, build output and signing files are ignored by
+Git. Login tokens are stored on the device, not in source files. Tests use
+isolated fixtures. The backend's SQLite database is not bundled in the app. Account registration
 and history remain Laravel responsibilities; Reverb only supplies presence,
 and Dialbase supplies calling infrastructure.
 

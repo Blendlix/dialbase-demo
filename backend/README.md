@@ -65,7 +65,7 @@ The example uses HTTP/WS on localhost, which browsers allow for local microphone
 5. Try mute, speaker on mobile, minimize, end, decline and tap-to-redial from mobile history.
 6. Confirm both users see their own history. Use headphones to avoid feedback when testing on one computer.
 
-For a friend on a different network, deploy this backend and Reverb on reachable HTTPS/WSS hosts with valid certificates. Set `APP_ENV=production`, `APP_DEBUG=false`, configure mail and persistent storage, supervise Reverb/queue processes and expose the correct WSS port through your reverse proxy/firewall. Configure the Flutter app with the public `/api/v1` URL. `localhost` and Herd `.test` domains are not remote-phone addresses. Dialbase session credentials, not Reverb, provide the audio NAT traversal servers.
+For testing across different networks, deploy this backend and Reverb on reachable HTTPS/WSS hosts with valid certificates. Set `APP_ENV=production`, `APP_DEBUG=false`, configure mail and persistent storage, supervise Reverb/queue processes and expose the correct WSS port through the reverse proxy/firewall. Configure the Flutter app with the public `/api/v1` URL. `localhost` and Herd `.test` domains are not remote-phone addresses. Dialbase session credentials, not Reverb, provide the audio NAT traversal servers.
 
 ## Follow the Code
 
@@ -83,6 +83,9 @@ npm run build
 
 Tests use isolated fixtures and mocked signaling; they do not contain the live SQLite users or make real Dialbase calls. Keep the lifecycle tests when modifying signaling: receipts, stale events and microphone-permission races can otherwise break active calls.
 
-## Safe to Share
+## Local Data
 
-Commit migrations, factories, source, lockfiles and `.env.example`, not `.env`, SQLite databases/WAL files, uploads, sessions, logs, caches, archives or signing keys. The fresh checkout creates its own database and accounts. `.gitignore` does not untrack previously committed files; audit the staged files and any Git history before publishing.
+Migrations and `.env.example` define the installation; runtime databases and
+credentials are not repository assets. Each checkout creates its own database
+and accounts. Ignore rules exclude environment files, databases, logs, caches,
+uploads and signing keys. They do not remove files already tracked by Git.
