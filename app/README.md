@@ -4,16 +4,33 @@ A native audio-call client for the Laravel Dialbase demo backend. The app demons
 
 ## Run
 
+Complete the backend setup, credentials, Reverb and email-verification steps in
+the [root walkthrough](../README.md) first. Install Flutter with Dart 3.13.3 or
+compatible newer Dart 3.x and the Android/iOS toolchain. From the repository root:
+
 ```sh
+cd app
+flutter doctor
 flutter pub get
-flutter run --dart-define=DIALBASE_API_URL=https://dialbase.test/api/v1
+cp config/development.example.json config/development.json
 ```
 
-For a reusable configuration, copy `config/development.example.json` to
-`config/development.json`, set your backend URL, and run:
+Fix any toolchain issues reported by `flutter doctor`. Edit
+`config/development.json` and replace the example URL with your reachable Laravel
+backend URL, including `/api/v1`:
+
+```json
+{
+  "DIALBASE_API_URL": "https://demo.your-domain.com/api/v1"
+}
+```
+
+Start a simulator/emulator or connect a phone. List devices and replace
+`YOUR_DEVICE_ID` with its ID:
 
 ```sh
-flutter run --dart-define-from-file=config/development.json
+flutter devices
+flutter run -d YOUR_DEVICE_ID --dart-define-from-file=config/development.json
 ```
 
 This config contains only the demo backend URL. Do not add Dialbase product

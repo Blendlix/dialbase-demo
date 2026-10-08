@@ -15,6 +15,10 @@ The demo backend is not a replacement for Dialbase's calling infrastructure. Pro
 
 ## Install
 
+For an explicit clone-to-first-call walkthrough, including full `.env` settings,
+individual install commands, verification and Flutter setup, start with the
+[root README](../README.md). The shortcut below is for fresh installations.
+
 Requirements: PHP 8.3+, Composer, SQLite support, Node.js 22.12+ with npm. The mobile client additionally needs a compatible Flutter SDK.
 
 From this directory:
